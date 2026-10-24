@@ -153,7 +153,7 @@ export function createReleaseUpdater(release: {
   // cache (Library/Caches, or local AppData on Windows, never roaming AppData).
   const downloads = {
     fetch: release.fetch,
-    directory: path.join(getAppCacheDir(), 'TasteCode', 'update-downloads'),
+    directory: path.join(getAppCacheDir(), 'Jevcode', 'update-downloads'),
   }
   const options = {
     provider: 'custom' as const,

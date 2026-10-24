@@ -114,13 +114,13 @@ applyDesktopPath()
 const here = path.dirname(fileURLToPath(import.meta.url))
 const require = createRequire(import.meta.url)
 const productIconPath = path.join(here, '../assets/tastecode-app-icon.png')
-const nativeAppName = 'Taste Code'
+const nativeAppName = 'Jevcode'
 // Performance runs must never read or rewrite the user's real window and
 // Chromium state. Keep the override opt-in so normal installs stay on the
-// long-standing TasteCode path.
+// product data path.
 const productDataPath = process.env['HARNESS_DESKTOP_DATA_DIR']
   ? path.resolve(process.env['HARNESS_DESKTOP_DATA_DIR'])
-  : path.join(app.getPath('appData'), 'TasteCode')
+  : path.join(app.getPath('appData'), 'Jevcode')
 const mainWindowStatePath = path.join(productDataPath, 'window-state.json')
 const windowChromePath = path.join(productDataPath, 'window-chrome.json')
 /** What window-chrome.json holds, so an unchanged report does not rewrite it. */
@@ -224,7 +224,7 @@ const previewCaptures = new PreviewCaptureOwner({
     captureWindows.delete(window)
   },
   directory: (requestId) =>
-    path.join(app.getPath('temp'), 'TasteCode', 'preview-captures', requestId),
+    path.join(app.getPath('temp'), 'Jevcode', 'preview-captures', requestId),
   parseAudit: async (value) => {
     const { PreviewDomAuditSchema } = await import('@harness/contracts')
     return PreviewDomAuditSchema.parse(value)
@@ -236,7 +236,7 @@ const previewCaptures = new PreviewCaptureOwner({
 // intermittent all-black window. Verified over CDP: DOM complete, renderer
 // healthy, compositor off. The watchdog below covers whatever this misses.
 if (process.platform === 'win32') {
-  app.setAppUserModelId('dev.tastecode.desktop')
+  app.setAppUserModelId('ai.orca-studio.jevcode')
   app.commandLine.appendSwitch('disable-features', 'CalculateNativeWinOcclusion')
 }
 app.setName(nativeAppName)
@@ -1042,7 +1042,7 @@ const CAPTURE_SWEEP_INTERVAL_MS = 6 * 60 * 60 * 1000
 /** Screenshot directories older than a day have no live consumer: the design
  *  flow reads them within minutes, and a restored run recaptures missing ones. */
 async function sweepStaleCaptures(): Promise<void> {
-  const root = path.join(app.getPath('temp'), 'TasteCode', 'preview-captures')
+  const root = path.join(app.getPath('temp'), 'Jevcode', 'preview-captures')
   const dayAgo = Date.now() - 24 * 60 * 60 * 1000
   let entries: string[]
   try {

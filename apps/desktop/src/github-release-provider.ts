@@ -3,7 +3,7 @@ import { Provider, type ProviderRuntimeOptions } from 'electron-updater/out/prov
 import { eq, gt, lte, rcompare, valid } from 'semver'
 import { z } from 'zod'
 
-export const releaseRepository = 'Leonxlnx/tastecode'
+export const releaseRepository = 'orca-studio/jevcode'
 const releasePage = `https://github.com/${releaseRepository}/releases`
 const releaseApi = `https://api.github.com/repos/${releaseRepository}/releases`
 const FEED_ENTRIES = 10
@@ -112,7 +112,7 @@ export function releaseUpdateInfo(
   const target = platform === 'darwin' ? 'mac' : platform === 'win32' ? 'win' : undefined
   if (!target) throw new Error('App updates are supported on Windows and macOS.')
   const extension = target === 'mac' ? 'dmg' : 'exe'
-  const name = `TasteCode-${version}-${target}-${arch}.${extension}`
+  const name = `Jevcode-${version}-${target}-${arch}.${extension}`
   const matches = release.assets.filter(
     (asset) =>
       typeof asset === 'object' && asset !== null && 'name' in asset && asset.name === name,

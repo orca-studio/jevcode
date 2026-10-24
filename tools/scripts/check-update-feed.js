@@ -24,7 +24,7 @@ function versionOf(tag) {
 
 function installerProblem(release, repository, installer) {
   const version = versionOf(release.tag_name)
-  const name = `TasteCode-${version}-${installer.target}-${installer.arch}.${installer.extension}`
+  const name = `Jevcode-${version}-${installer.target}-${installer.arch}.${installer.extension}`
   const matches = (release.assets ?? []).filter((asset) => asset?.name === name)
   if (matches.length !== 1) return `missing ${name}`
   const asset = matches[0]

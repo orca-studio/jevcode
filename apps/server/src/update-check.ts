@@ -14,7 +14,7 @@ import { z } from 'zod'
  * throwing.
  */
 
-const REPO = 'Leonxlnx/tastecode'
+const REPO = 'orca-studio/jevcode'
 const GitHubCommitSchema = z.object({
   sha: z.string().optional(),
   commit: z

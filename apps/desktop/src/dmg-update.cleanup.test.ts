@@ -45,7 +45,7 @@ function tools(detach: (args: string[]) => Promise<Result>) {
     const tool = path.basename(file)
     if (tool === 'hdiutil' && args[0] === 'detach') return detach(args)
     if (tool === 'plutil')
-      return ok(args[1] === 'CFBundleIdentifier' ? 'dev.tastecode.desktop\n' : '0.1.3\n')
+      return ok(args[1] === 'CFBundleIdentifier' ? 'ai.orca-studio.jevcode\n' : '0.1.3\n')
     return ok()
   })
 }

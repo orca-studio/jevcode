@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { updateFeedVerdicts } from './check-update-feed.js'
 
-const repository = 'Leonxlnx/tastecode'
+const repository = 'orca-studio/jevcode'
 
 function release(
   version,
@@ -16,7 +16,7 @@ function release(
     prerelease: true,
     published_at: publishedAt,
     assets: assets.map((suffix) => {
-      const name = `TasteCode-${version}-${suffix}`
+      const name = `Jevcode-${version}-${suffix}`
       return {
         name,
         state: 'uploaded',
@@ -56,7 +56,7 @@ test('an older proof published after the newest release breaks beta 7 to 0.1.1',
     release('0.1.1', '2026-09-20T00:00:00Z'),
   ])
   assert.equal(old.failed, true)
-  assert.match(old.problems.join('\n'), /missing TasteCode-0\.1\.0-beta\.8-mac-arm64\.dmg/)
+  assert.match(old.problems.join('\n'), /missing Jevcode-0\.1\.0-beta\.8-mac-arm64\.dmg/)
   assert.match(old.problems.join('\n'), /not the highest version; v0\.1\.1 is/)
   assert.deepEqual(later, { tag: 'v0.1.1', failed: false, problems: [] })
 })
@@ -75,15 +75,15 @@ test('every generation fails when the newest release lacks an installer or its d
     release('0.1.2', '2026-10-01T00:00:00Z', { assets: ['mac-arm64.dmg'] }),
   ])
   assert.ok(missing.every((verdict) => verdict.failed))
-  assert.match(missing[0].problems[0], /missing TasteCode-0\.1\.2-win-x64\.exe/)
+  assert.match(missing[0].problems[0], /missing Jevcode-0\.1\.2-win-x64\.exe/)
 
   const unhashed = release('0.1.2', '2026-10-01T00:00:00Z')
   unhashed.assets[0].digest = null
   unhashed.assets[1].state = 'starter'
   const [verdict] = verdicts([unhashed])
   assert.deepEqual(verdict.problems, [
-    'TasteCode-0.1.2-mac-arm64.dmg has no SHA-256 digest',
-    'TasteCode-0.1.2-win-x64.exe is still uploading',
+    'Jevcode-0.1.2-mac-arm64.dmg has no SHA-256 digest',
+    'Jevcode-0.1.2-win-x64.exe is still uploading',
   ])
 })
 
@@ -100,11 +100,9 @@ test('a draft is judged as if published now, with its assets moved under the tag
     { tag: 'v0.1.2', failed: false, problems: [] },
   ])
 
-  draft.assets[1].browser_download_url = 'https://example.com/TasteCode-0.1.2-win-x64.exe'
+  draft.assets[1].browser_download_url = 'https://example.com/Jevcode-0.1.2-win-x64.exe'
   const [verdict] = verdicts(live, { draft })
-  assert.deepEqual(verdict.problems, [
-    'TasteCode-0.1.2-win-x64.exe downloads from an unexpected URL',
-  ])
+  assert.deepEqual(verdict.problems, ['Jevcode-0.1.2-win-x64.exe downloads from an unexpected URL'])
 })
 
 test('drafts, unpublished rows and non-version tags are ignored', () => {

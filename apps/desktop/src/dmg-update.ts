@@ -52,7 +52,7 @@ export async function prepareDmgUpdate(
     const plist = path.join(app, 'Contents', 'Info.plist')
     const readKey = async (key: string) =>
       (await run('/usr/bin/plutil', ['-extract', key, 'raw', '-o', '-', plist])).stdout.trim()
-    if ((await readKey('CFBundleIdentifier')) !== 'dev.tastecode.desktop')
+    if ((await readKey('CFBundleIdentifier')) !== 'ai.orca-studio.jevcode')
       throw new InvalidUpdateError('The DMG contains a different app.')
     if ((await readKey('CFBundleShortVersionString')) !== version)
       throw new InvalidUpdateError('The DMG app version does not match the release.')

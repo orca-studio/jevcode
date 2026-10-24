@@ -1,6 +1,6 @@
 {
   "name": "@harness/desktop",
-  "productName": "Taste Code",
+  "productName": "Jevcode",
   "description": "A local desktop workspace for coding agents.",
   "author": "Tasteskill Team",
   "copyright": "made by @blueemi99 and @lexnlin on X :)",
@@ -42,7 +42,7 @@
     "vitest": "^4.1.10"
   },
   "build": {
-    "appId": "dev.tastecode.desktop",
+    "appId": "ai.orca-studio.jevcode",
     "icon": "assets/tastecode-app-icon.png",
     "asar": true,
     "compression": "maximum",
@@ -124,12 +124,12 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "Leonxlnx",
-        "repo": "tastecode",
+        "owner": "orca-studio",
+        "repo": "jevcode",
         "releaseType": "draft"
       }
     ],
-    "artifactName": "TasteCode-${version}-${os}-${arch}.${ext}",
+    "artifactName": "Jevcode-${version}-${os}-${arch}.${ext}",
     "win": {
       "target": [
         {

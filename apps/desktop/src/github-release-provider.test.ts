@@ -25,13 +25,13 @@ function release(version = '0.1.0-beta.8', date = '2026-09-20T00:00:00Z') {
       ['mac-arm64', 'dmg'],
       ['win-x64', 'exe'],
     ].map(([target, ext]) => {
-      const name = `TasteCode-${version}-${target}.${ext}`
+      const name = `Jevcode-${version}-${target}.${ext}`
       return {
         name,
         state: 'uploaded',
         size: 100,
         digest: `sha256:${'a'.repeat(64)}`,
-        browser_download_url: `https://github.com/Leonxlnx/tastecode/releases/download/v${version}/${name}`,
+        browser_download_url: `https://github.com/orca-studio/jevcode/releases/download/v${version}/${name}`,
       }
     }),
   }
@@ -39,7 +39,7 @@ function release(version = '0.1.0-beta.8', date = '2026-09-20T00:00:00Z') {
 
 describe('GitHub asset releases', () => {
   it('keeps 0.1.1 ahead of an older Linux-only beta published later', () => {
-    const beta = { ...release(), assets: [{ name: 'TasteCode-0.1.0-beta.8-linux-amd64.deb' }] }
+    const beta = { ...release(), assets: [{ name: 'Jevcode-0.1.0-beta.8-linux-amd64.deb' }] }
     const stable = { ...release('0.1.1', '2026-09-19T00:00:00Z'), prerelease: false }
     const draft = { ...release('2.0.0', '2026-09-21T00:00:00Z'), draft: true }
     const latest = selectLatestRelease([stable, draft, beta])
@@ -134,7 +134,7 @@ describe('GitHub asset releases', () => {
     const result = await providerWith(fetch, '0.1.1').getLatestVersion()
     expect(result).toMatchObject({ version: '0.1.1', files: [] })
     expect(fetch).toHaveBeenCalledOnce()
-    expect(fetch.mock.calls[0]![0]).toBe('https://github.com/Leonxlnx/tastecode/releases.atom')
+    expect(fetch.mock.calls[0]![0]).toBe('https://github.com/orca-studio/jevcode/releases.atom')
   })
 
   it('confirms the newest tag through the API with one request', async () => {
@@ -143,8 +143,8 @@ describe('GitHub asset releases', () => {
     })
     expect((await providerWith(fetch, '0.1.1').getLatestVersion()).version).toBe('0.1.2')
     expect(fetch.mock.calls.map(([url]) => url)).toEqual([
-      'https://github.com/Leonxlnx/tastecode/releases.atom',
-      'https://api.github.com/repos/Leonxlnx/tastecode/releases/tags/v0.1.2',
+      'https://github.com/orca-studio/jevcode/releases.atom',
+      'https://api.github.com/repos/orca-studio/jevcode/releases/tags/v0.1.2',
     ])
     expect(JSON.stringify(fetch.mock.calls)).not.toMatch(/authorization|\.yml/i)
   })
@@ -210,7 +210,7 @@ describe('GitHub asset releases', () => {
     expect(result.version).toBe('0.1.0-beta.8')
     expect(fetch).toHaveBeenCalledTimes(3)
     expect(fetch.mock.calls[2]![0]).toBe(
-      'https://api.github.com/repos/Leonxlnx/tastecode/releases?per_page=100&page=2',
+      'https://api.github.com/repos/orca-studio/jevcode/releases?per_page=100&page=2',
     )
     expect(() => provider.resolveFiles()).toThrow(/verified/)
   })
@@ -263,7 +263,7 @@ describe('GitHub asset releases', () => {
   it('reads the release list when a feed entry has no readable tag', async () => {
     const atom = feed('v0.1.2').replace(
       '</feed>',
-      '  <entry>\n    <link rel="alternate" href="https://github.com/Leonxlnx/tastecode/releases/tag/%E0%A4%A"/>\n  </entry>\n</feed>',
+      '  <entry>\n    <link rel="alternate" href="https://github.com/orca-studio/jevcode/releases/tag/%E0%A4%A"/>\n  </entry>\n</feed>',
     )
     const fetch = feedFetch(atom, {}, [localRelease('0.1.3'), localRelease('0.1.2')])
     expect((await providerWith(fetch, '0.1.2').getLatestVersion()).version).toBe('0.1.3')
@@ -370,12 +370,12 @@ function feed(...tags: string[]) {
   const entries = tags.map(
     (tag) => `  <entry>
     <id>tag:github.com,2008:Repository/1314983809/${tag}</id>
-    <link rel="alternate" type="text/html" href="https://github.com/Leonxlnx/tastecode/releases/tag/${tag}"/>
+    <link rel="alternate" type="text/html" href="https://github.com/orca-studio/jevcode/releases/tag/${tag}"/>
   </entry>`,
   )
   return `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <link type="text/html" rel="alternate" href="https://github.com/Leonxlnx/tastecode/releases"/>
+  <link type="text/html" rel="alternate" href="https://github.com/orca-studio/jevcode/releases"/>
 ${entries.join('\n')}
 </feed>`
 }

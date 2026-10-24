@@ -21,7 +21,7 @@ async function makeApp(folder: string, name: string, app: AppFixture = {}) {
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
 <key>CFBundleExecutable</key><string>TasteCode</string>
-<key>CFBundleIdentifier</key><string>${app.id ?? 'dev.tastecode.desktop'}</string>
+<key>CFBundleIdentifier</key><string>${app.id ?? 'ai.orca-studio.jevcode'}</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>CFBundleShortVersionString</key><string>${app.version ?? '0.1.3'}</string>
 </dict></plist>
