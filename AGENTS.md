@@ -78,12 +78,15 @@ the code. Port it into `packages/adapter-dsh` as TypeScript; record the decision
 | `origin`   | `orca-studio/jevcode`                    | all jevcode work     |
 | `upstream` | `Leonxlnx/tastecode` (push URL disabled) | fetch and merge only |
 
-- **`dev` is the default and integration branch.** Feature branches start from `dev` and
-  come back by PR into `dev`.
-- **Sync upstream by merge, never rebase.** On a dedicated branch:
+- **Work happens on `dev` directly.** It is the default branch; jevcode is a local
+  experiment, so no feature branches or PRs unless the owner asks for one.
+- **Sync upstream by merge, never rebase.** On `dev`:
   `git fetch upstream && git merge upstream/nightly`, resolve every conflict explicitly,
-  run the four gates, open a PR into `dev`. Sync little and often; a stale fork is where
-  conflicts come from.
+  run the four gates, then push. Sync little and often; a stale fork is where conflicts
+  come from. After a sync, search the merged code for TasteCode's machine identity
+  (`Leonxlnx/tastecode`, `dev.tastecode.desktop`, `TasteCode` data or temp folders,
+  `tastecode.db`, `.tastecode`, `PersonalHarness`, ports 4311 and 5183): new upstream code
+  can bring it back without a conflict.
 - **Never push to `upstream`** and never open PRs, issues or comments on `Leonxlnx/tastecode`
   without the owner asking. If a jevcode fix belongs upstream, say so and let the owner
   decide.
@@ -122,8 +125,7 @@ Every line changed in an upstream file is a future merge conflict.
   reaches the repo.
 - **Never commit a secret**, including in fixtures and examples. Connector OAuth tokens and
   API keys go to the OS credential store and are referenced, never written to config or logs.
-- **Agents do not commit, push or merge unless the owner asks** for that specific work.
-  Draft PRs are fine once work is pushed by request.
+- **Agents do not commit or push unless the owner asks** for that specific work.
 - **Never write a `.sh` script.** Node/TypeScript only — jevcode ships on macOS and Windows.
 - **Never assume POSIX paths.** Use `node:path`.
 - **Never mix a refactor with a behavior change** in one commit, and never mix an upstream
@@ -167,9 +169,13 @@ Every line changed in an upstream file is a future merge conflict.
 ## Running locally
 
 - Keep local binds on `127.0.0.1`.
-- `pnpm dev` refuses to start while another process holds port 4311 or 5183. An installed
-  TasteCode or jevcode build holds 4311 and shares the same data folder; quit it first and
-  never kill it for the user.
+- Jevcode's server listens on 4321 and the dev renderer on 5193, so it runs beside an
+  installed TasteCode (4311/5183). `pnpm dev` refuses to start while another process holds
+  4321 or 5193; an installed Jevcode build holds 4321 and shares the dev stack's data
+  folder. Quit it first and never kill it for the user.
+- Jevcode keeps its own data and never adopts TasteCode's: `Jevcode/jevcode.db` in the
+  platform data folder, settings in `~/.jevcode`, credentials under the `Jevcode` keychain
+  service.
 - If the agent shell exports `ELECTRON_RUN_AS_NODE`, unset it for `pnpm dev`; otherwise
   Electron starts as Node and cannot import `BrowserWindow`. On macOS, reference-library
   tests need `TMPDIR` set to its canonical `/private/var/...` path rather than `/var/...`.

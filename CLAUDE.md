@@ -17,18 +17,14 @@ reviewers; do not contact them or act on their repository unless the owner asks.
 
 ## Current state (2026-10-23)
 
-- `dev` was cut from `upstream/nightly` at `5c435d0d` and has no jevcode commits yet beyond
-  these instruction files.
-- Product identity is still upstream's. Until it changes, a jevcode build is
-  indistinguishable from TasteCode on the machine:
-  - `apps/desktop/package.json`: `productName` "Taste Code", `appId`
-    `dev.tastecode.desktop`, electron-builder `publish` targets `Leonxlnx/tastecode`.
-  - The updater reads `Leonxlnx/tastecode` releases (`apps/desktop/src/github-release-provider.ts`,
-    `apps/server/src/update-check.ts`). A jevcode build will offer to replace itself with
-    the next TasteCode release.
-  - Same server port (4311) and data folder as an installed TasteCode.
-- Changing that identity (name, app id, data folder, port, update feed) is the first jevcode
-  change to plan; the name is the owner's call.
+- `dev` was cut from `upstream/nightly` at `5c435d0d`.
+- The machine identity is Jevcode's: app name "Jevcode", app id `ai.orca-studio.jevcode`,
+  its own data folder, settings folder and keychain service, ports 4321/5193, and update
+  checks and release publishing against `orca-studio/jevcode`. A Jevcode build runs beside
+  an installed TasteCode without sharing anything.
+- Visible copy still says TasteCode (onboarding, settings, errors, about), and the app
+  icon is TasteCode's. Both are the owner's call and have not been changed.
+- `rules/*.md` and upstream docs still describe TasteCode's team; `AGENTS.md` overrides them.
 - `rules/*.md` and upstream docs still describe TasteCode's team; `AGENTS.md` overrides them.
 
 Recheck live state (`git fetch`, open PRs) before relying on anything in this section.
