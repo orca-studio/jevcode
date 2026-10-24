@@ -10,9 +10,9 @@ import { desktopPath } from '@harness/proc/desktop-path'
  * squat the path first; the uid suffix gives each user their own directory.
  */
 export function commandRuntimeDirectory(): string {
-  if (process.platform === 'win32') return path.join(os.tmpdir(), 'tastecode-project-tools')
+  if (process.platform === 'win32') return path.join(os.tmpdir(), 'jevcode-project-tools')
   const uid = typeof process.getuid === 'function' ? process.getuid() : undefined
-  const leaf = uid === undefined ? 'tastecode-project-tools' : `tastecode-project-tools-${uid}`
+  const leaf = uid === undefined ? 'jevcode-project-tools' : `jevcode-project-tools-${uid}`
   return path.join(os.tmpdir(), leaf)
 }
 

@@ -242,7 +242,7 @@ describe('audit integration regressions', () => {
     const data = path.join(root, 'data')
     git(repo, 'worktree', 'add', '--detach', isolated)
     expect(await checkpointRepository(repo)).toBe(await checkpointRepository(isolated))
-    const store = new Store(path.join(data, 'tastecode.db'))
+    const store = new Store(path.join(data, 'jevcode.db'))
     let closed = false
     try {
       store.addProject(repo)

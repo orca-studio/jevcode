@@ -16,8 +16,6 @@ export function migrateProductFile(current: string, legacy: string): string {
 export function configFile(name: string): string {
   const override = process.env['HARNESS_CONFIG_DIR']
   if (override) return path.join(override, name)
-  return migrateProductFile(
-    path.join(os.homedir(), '.tastecode', name),
-    path.join(os.homedir(), '.personalharness', name),
-  )
+  // Jevcode never adopts TasteCode's ~/.tastecode settings.
+  return path.join(os.homedir(), '.jevcode', name)
 }

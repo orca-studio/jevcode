@@ -47,7 +47,7 @@ describe('feedback endpoint at build time', () => {
       resolveFeedbackEndpoint({
         env: {},
         home: 'home',
-        read: fileAt({ [path.join('home', '.tastecode', 'trecko-feedback.env')]: text }),
+        read: fileAt({ [path.join('home', '.jevcode', 'trecko-feedback.env')]: text }),
       }),
     ).toEqual({ endpoint: { url: URL, key: KEY }, source: 'config file' })
     expect(

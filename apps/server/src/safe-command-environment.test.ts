@@ -78,7 +78,7 @@ describe('safe command environment', () => {
     expect(commandRuntimeDirectory()).toBe(commandRuntimeDirectory())
     if (process.platform === 'win32' || typeof process.getuid !== 'function') return
     expect(path.basename(commandRuntimeDirectory())).toBe(
-      `tastecode-project-tools-${process.getuid()}`,
+      `jevcode-project-tools-${process.getuid()}`,
     )
   })
 

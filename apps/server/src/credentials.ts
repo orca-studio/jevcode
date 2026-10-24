@@ -1,7 +1,7 @@
 import { createRequire } from 'node:module'
 import type { Entry as KeyringEntry } from '@napi-rs/keyring'
 
-const SERVICE = 'PersonalHarness'
+const SERVICE = 'Jevcode'
 const require = createRequire(import.meta.url)
 type EntryConstructor = typeof KeyringEntry
 let loadedEntry: EntryConstructor | undefined

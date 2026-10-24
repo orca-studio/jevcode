@@ -3,7 +3,7 @@
  *
  * The key is a Trecko public submit key. It is never committed: release
  * builds take it from the environment (a GitHub Actions secret in CI) or from
- * the maintainer's `~/.tastecode/trecko-feedback.env`, and this script writes
+ * the maintainer's `~/.jevcode/trecko-feedback.env`, and this script writes
  * it to `dist/feedback/feedback.env`, which electron-builder copies into the
  * app's resources. Desktop main passes only that file's path to the server,
  * so the key never sits in an environment that agent CLIs and terminals
@@ -78,7 +78,7 @@ export function resolveFeedbackEndpoint({
       )
     return { endpoint, source: 'environment' }
   }
-  const directory = env['HARNESS_CONFIG_DIR'] || path.join(home, '.tastecode')
+  const directory = env['HARNESS_CONFIG_DIR'] || path.join(home, '.jevcode')
   const text = read(path.join(directory, 'trecko-feedback.env'))
   if (text === undefined) return { source: 'none' }
   const endpoint = validFeedbackEndpoint(parseFeedbackEnv(text))

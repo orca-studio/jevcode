@@ -15,9 +15,9 @@ const DEFAULT_DIRECTORY = attachmentDirectory()
  * the agent reads them. Windows and macOS temp folders are already per user.
  */
 function attachmentDirectory(): string {
-  if (process.platform === 'win32') return path.join(os.tmpdir(), 'TasteCode', 'attachments')
+  if (process.platform === 'win32') return path.join(os.tmpdir(), 'Jevcode', 'attachments')
   const uid = typeof process.getuid === 'function' ? process.getuid() : undefined
-  const leaf = uid === undefined ? 'tastecode-attachments' : `tastecode-attachments-${uid}`
+  const leaf = uid === undefined ? 'jevcode-attachments' : `jevcode-attachments-${uid}`
   return path.join(os.tmpdir(), leaf)
 }
 

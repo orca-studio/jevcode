@@ -50,7 +50,7 @@ describe('remote attachment materialization', () => {
       await rm(target)
 
       expect(path.dirname(target)).toBe(
-        path.join(os.tmpdir(), `tastecode-attachments-${process.getuid!()}`),
+        path.join(os.tmpdir(), `jevcode-attachments-${process.getuid!()}`),
       )
       expect(statSync(path.dirname(target)).mode & 0o777).toBe(0o700)
     },

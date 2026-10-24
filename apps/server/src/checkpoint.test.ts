@@ -784,7 +784,7 @@ it.each(['checkout', 'git-directory'])(
   'prunes history with a saved %s without dropping unsupported-provider checkpoints',
   async (savedPath) => {
     const data = mkdtempSync(path.join(os.tmpdir(), 'harness-prune-checkpoints-'))
-    const location = path.join(data, 'tastecode.db')
+    const location = path.join(data, 'jevcode.db')
     let store: Store | undefined
     try {
       store = new Store(location)

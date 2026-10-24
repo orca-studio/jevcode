@@ -16,7 +16,7 @@ afterEach(() => {
 function setup() {
   const root = mkdtempSync(path.join(os.tmpdir(), 'harness-history-clean-'))
   roots.push(root)
-  const store = new Store(path.join(root, 'tastecode.db'))
+  const store = new Store(path.join(root, 'jevcode.db'))
   store.addProject(root)
   for (const id of ['old', 'active', 'isolated']) {
     store.addThread({
@@ -51,7 +51,7 @@ async function checkpointed() {
   git('init', '-b', 'main')
   git('config', 'user.email', 'test@example.com')
   git('config', 'user.name', 'Test')
-  const store = new Store(path.join(root, 'tastecode.db'))
+  const store = new Store(path.join(root, 'jevcode.db'))
   store.addProject(repo)
   const commits: Record<string, string> = {}
   const checkpoint = async (threadId: string) => {
@@ -78,7 +78,7 @@ async function checkpointed() {
       output,
     )
   const thread = (id: string) => {
-    const reopened = new Store(path.join(root, 'tastecode.db'))
+    const reopened = new Store(path.join(root, 'jevcode.db'))
     try {
       return reopened.thread(id)
     } finally {
@@ -113,7 +113,7 @@ describe('history maintenance', () => {
   it('compacts streamed fragments that completed items already contain', async () => {
     const root = mkdtempSync(path.join(os.tmpdir(), 'harness-history-fold-'))
     roots.push(root)
-    const store = new Store(path.join(root, 'tastecode.db'))
+    const store = new Store(path.join(root, 'jevcode.db'))
     store.addProject(root)
     store.addThread({ id: 't', projectPath: root, provider: 'codex', title: 't' })
     const item = (id: string, text: string, status: 'started' | 'completed') => ({
@@ -159,7 +159,7 @@ describe('history maintenance', () => {
     await runHistoryCli(['compact'], { HARNESS_DATA_DIR: root }, (line) => output.push(line))
     expect(JSON.parse(output[0]!)).toMatchObject({ foldedDeltaEvents: 2 })
 
-    const reopened = new Store(path.join(root, 'tastecode.db'))
+    const reopened = new Store(path.join(root, 'jevcode.db'))
     const history = reopened.history('t')
     reopened.close()
     expect(history).toHaveLength(events.length - 2)
@@ -185,10 +185,10 @@ describe('history maintenance', () => {
       runHistoryCli(['prune', '--before', '2099-01-01', '--apply'], env),
     ).rejects.toThrow(/archive/)
     await expect(runHistoryCli(['prune', '--before', '2099-02-30'], env)).rejects.toThrow(/valid/)
-    const reopened = new Store(path.join(root, 'tastecode.db'))
+    const reopened = new Store(path.join(root, 'jevcode.db'))
     expect(reopened.thread('old')).toBeDefined()
     reopened.close()
-    expect(existsSync(path.join(root, 'tastecode.db'))).toBe(true)
+    expect(existsSync(path.join(root, 'jevcode.db'))).toBe(true)
   })
   it('prunes past a recorded checkpoint directory that is no longer a Git repository', async () => {
     const { root, store, commits, refs, prune, thread } = await checkpointed()
