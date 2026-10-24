@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 import { sharedGrammarPlugins } from './scripts/shared-grammars.js'
 import { shippedLanguageNames } from './src/ui/shiki-languages.js'
 
-const harnessServerUrl = process.env['VITE_HARNESS_SERVER_URL'] ?? 'ws://127.0.0.1:4311'
+const harnessServerUrl = process.env['VITE_HARNESS_SERVER_URL'] ?? 'ws://127.0.0.1:4321'
 const here = (relative: string) => fileURLToPath(new URL(relative, import.meta.url))
 const grammarPlugins = sharedGrammarPlugins(here('.'), shippedLanguageNames)
 
@@ -36,7 +36,7 @@ export default defineConfig({
     // Windows, while Electron and the server both use 127.0.0.1 — the window
     // then opens on ERR_CONNECTION_REFUSED and looks like a broken build.
     host: '127.0.0.1',
-    port: 5183,
+    port: 5193,
     strictPort: true,
   },
   build: {

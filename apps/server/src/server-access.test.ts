@@ -28,18 +28,18 @@ describe('websocket origin gate', () => {
     // The packaged Electron renderer loads from file:.
     expect(allowedOrigin('file://')).toBe(true)
     // The dev server and the web UI.
-    expect(allowedOrigin('http://127.0.0.1:5183')).toBe(true)
+    expect(allowedOrigin('http://127.0.0.1:5193')).toBe(true)
   })
 
   it.each([
     'http://127.0.0.1:3000',
-    'http://127.0.0.1:4311',
-    'http://localhost:5183',
-    'http://[::1]:5183',
-    'http://127.0.0.2:5183',
-    'https://127.0.0.1:5183',
-    'http://127.0.0.1:5183/preview',
-    'ws://127.0.0.1:5183',
+    'http://127.0.0.1:4321',
+    'http://localhost:5193',
+    'http://[::1]:5193',
+    'http://127.0.0.2:5193',
+    'https://127.0.0.1:5193',
+    'http://127.0.0.1:5193/preview',
+    'ws://127.0.0.1:5193',
     '',
   ])('refuses an origin other than the renderer: %s', (origin) => {
     expect(allowedOrigin(origin)).toBe(false)
@@ -48,8 +48,8 @@ describe('websocket origin gate', () => {
   it('replaces the default HTTP origin when the renderer is explicitly configured', () => {
     const rendererOrigin = 'http://127.0.0.1:6100'
     expect(allowedOrigin(rendererOrigin, undefined, rendererOrigin)).toBe(true)
-    expect(allowedOrigin('http://127.0.0.1:5183', undefined, rendererOrigin)).toBe(false)
-    expect(allowedOrigin('http://127.0.0.1:5183', undefined, 'file://')).toBe(false)
+    expect(allowedOrigin('http://127.0.0.1:5193', undefined, rendererOrigin)).toBe(false)
+    expect(allowedOrigin('http://127.0.0.1:5193', undefined, 'file://')).toBe(false)
     expect(allowedOrigin('file://', undefined, 'file://')).toBe(true)
     expect(allowedOrigin(undefined, undefined, 'file://')).toBe(true)
   })
@@ -70,10 +70,10 @@ describe('websocket origin gate', () => {
 
   it('admits an external page only when the access token is the boundary', () => {
     // A deliberately remote development surface must carry an access token.
-    expect(allowedOrigin('http://100.101.169.28:5183', 'secret')).toBe(true)
-    expect(allowedOrigin('http://192.168.1.20:5183', 'secret')).toBe(true)
+    expect(allowedOrigin('http://100.101.169.28:5193', 'secret')).toBe(true)
+    expect(allowedOrigin('http://192.168.1.20:5193', 'secret')).toBe(true)
     // Without a token the external surface stays closed.
-    expect(allowedOrigin('http://100.101.169.28:5183')).toBe(false)
+    expect(allowedOrigin('http://100.101.169.28:5193')).toBe(false)
     // The opaque origin stays forbidden even behind a token: any page can mint
     // one, and no surface of ours ever reports it.
     expect(allowedOrigin('null', 'secret')).toBe(false)

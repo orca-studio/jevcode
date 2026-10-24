@@ -406,7 +406,7 @@ describe('rejected websocket connections', () => {
   )
 
   it.each([
-    { origin: 'http://127.0.0.1:5183', accessToken: undefined },
+    { origin: 'http://127.0.0.1:5193', accessToken: undefined },
     { origin: 'https://remote.example', accessToken: 'test-only' },
     { origin: 'http://127.0.0.1:3000', accessToken: 'test-only' },
   ])(
@@ -439,7 +439,7 @@ describe('rejected websocket connections', () => {
       allowed.terminate()
     }
     const rejected = new WebSocket(`ws://127.0.0.1:${port}`, {
-      origin: 'http://127.0.0.1:5183',
+      origin: 'http://127.0.0.1:5193',
     })
     try {
       const [code] = await once(rejected, 'close')
@@ -452,10 +452,10 @@ describe('rejected websocket connections', () => {
   it('keeps an unconfigured HTTP surface out of a file-only desktop server', async () => {
     vi.stubEnv('HARNESS_RENDERER_ORIGIN', 'file://')
     const { port } = await listen()
-    for (const origin of [undefined, 'file://', 'http://127.0.0.1:5183']) {
+    for (const origin of [undefined, 'file://', 'http://127.0.0.1:5193']) {
       const client = new WebSocket(`ws://127.0.0.1:${port}`, origin ? { origin } : {})
       try {
-        if (origin === 'http://127.0.0.1:5183') {
+        if (origin === 'http://127.0.0.1:5193') {
           const [code] = await once(client, 'close')
           expect(code).toBe(1008)
         } else {

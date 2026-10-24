@@ -14,8 +14,8 @@ import {
 } from './dev-process-ownership.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
-const VITE_URL = 'http://127.0.0.1:5183'
-const DEV_PORTS = new Set([4311, 5183])
+const VITE_URL = 'http://127.0.0.1:5193'
+const DEV_PORTS = new Set([4321, 5193])
 const isWin = process.platform === 'win32'
 const children = []
 const execFileAsync = promisify(execFile)
@@ -286,5 +286,5 @@ await writeFile(ownerFile, JSON.stringify(ownRecord), { mode: 0o600 })
 
 run('server', 'apps/server', ['run', 'dev'], { HARNESS_RENDERER_ORIGIN: new URL(VITE_URL).origin })
 run('web', 'apps/web', ['run', 'dev'])
-await waitForPort(5183)
+await waitForPort(5193)
 run('desktop', 'apps/desktop', ['run', 'start'], { HARNESS_DEV_SERVER: VITE_URL })

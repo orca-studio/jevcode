@@ -7,6 +7,6 @@ describe('serverBaseUrl', () => {
   })
 
   it('defaults to the loopback control socket', () => {
-    expect(serverBaseUrl(undefined)).toBe('ws://127.0.0.1:4311')
+    expect(serverBaseUrl(undefined)).toBe('ws://127.0.0.1:4321')
   })
 })

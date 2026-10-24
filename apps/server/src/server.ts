@@ -51,7 +51,7 @@ import { HistoryRefreshSchedule } from './history-refresh-schedule.js'
 import { STREAM_QUIET_BACKGROUND_WAIT_MS, StreamQuiet } from './stream-quiet.js'
 
 const SERVER_VERSION = '0.0.0'
-const DEFAULT_RENDERER_ORIGIN = 'http://127.0.0.1:5183'
+const DEFAULT_RENDERER_ORIGIN = 'http://127.0.0.1:5193'
 /** When no client has asked for its projects by then, background work starts anyway. */
 const BACKGROUND_WORK_DELAY_MS = 1_500
 /**
@@ -1601,7 +1601,7 @@ export function startServer(
  * Browsers always send Origin on an upgrade; an empty or opaque one is not
  * equivalent to the missing header of a non-browser client.
  *
- * The dev renderer defaults to http://127.0.0.1:5183. HARNESS_RENDERER_ORIGIN
+ * The dev renderer defaults to http://127.0.0.1:5193. HARNESS_RENDERER_ORIGIN
  * replaces it for a custom renderer port; desktop-owned servers set file://
  * so a packaged app does not trust an unrelated HTTP server on the dev port.
  *
