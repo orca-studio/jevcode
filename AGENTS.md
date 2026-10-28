@@ -78,9 +78,12 @@ the code. Port it into `packages/adapter-dsh` as TypeScript; record the decision
 | `origin`   | `orca-studio/jevcode`                    | all jevcode work     |
 | `upstream` | `Leonxlnx/tastecode` (push URL disabled) | fetch and merge only |
 
-- **Work happens on `dev` directly.** It is the default branch; jevcode is a local
-  experiment, so no feature branches or PRs unless the owner asks for one.
-- **Sync upstream by merge, never rebase.** On `dev`:
+- **Work happens on `orca-dev` directly.** It is the default branch; jevcode is a local
+  experiment, so no feature branches or PRs unless the owner asks for one. It is not named
+  `dev` so it never reads as upstream's own `dev`.
+- **Track only `upstream/nightly`.** The `upstream` remote fetches that one branch;
+  upstream's `dev` and `main` are not followed.
+- **Sync upstream by merge, never rebase.** On `orca-dev`:
   `git fetch upstream && git merge upstream/nightly`, resolve every conflict explicitly,
   run the four gates, then push. Sync little and often; a stale fork is where conflicts
   come from. After a sync, search the merged code for TasteCode's machine identity
@@ -114,7 +117,7 @@ Every line changed in an upstream file is a future merge conflict.
    model.
 2. [rules/code.md](./rules/code.md) — cross-platform, style, decisions
 3. [rules/security.md](./rules/security.md) — credentials
-4. [rules/git.md](./rules/git.md) — commit and PR conventions (branch names in it mean `dev` here)
+4. [rules/git.md](./rules/git.md) — commit and PR conventions (its branch model is upstream's; jevcode works on `orca-dev`)
 5. [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) — check whether a decision already exists
    before making a new one
 
@@ -148,7 +151,7 @@ Every line changed in an upstream file is a future merge conflict.
 
 ## How to work
 
-- **Check live state before starting.** Fetch, compare with `dev` and `upstream/nightly`,
+- **Check live state before starting.** Fetch, compare with `orca-dev` and `upstream/nightly`,
   look at open PRs and worktrees. Never modify a worktree, branch or process you did not
   create.
 - **Small commits, one logical change each.** Conventional Commits; the body says _why_.

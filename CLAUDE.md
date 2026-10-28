@@ -17,7 +17,7 @@ reviewers; do not contact them or act on their repository unless the owner asks.
 
 ## Current state (2026-10-23)
 
-- `dev` was cut from `upstream/nightly` at `5c435d0d`.
+- `orca-dev` (named `dev` until 2026-10-28) was cut from `upstream/nightly` at `5c435d0d`.
 - The machine identity is Jevcode's: app name "Jevcode", app id `ai.orca-studio.jevcode`,
   its own data folder, settings folder and keychain service, ports 4321/5193, and update
   checks and release publishing against `orca-studio/jevcode`. A Jevcode build runs beside
